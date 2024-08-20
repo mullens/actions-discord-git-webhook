@@ -9,10 +9,8 @@ module.exports.send = (
   censorUsername,
   color
 ) => {
-  const repository = payload.repository.full_name;
   const commits = payload.commits;
   const size = commits.length;
-  const branch = payload.ref.split("/")[payload.ref.split("/").length - 1];
   const url = payload.compare;
 
   if (commits.length === 0) {
@@ -74,14 +72,6 @@ module.exports.getChangeLog = (payload, hideLinks) => {
 
     let commit = commits[i];
     const username = commit.author.username;
-    const repository = payload.repository;
-
-    if (commit.message.includes(repository.full_name) && hideLinks) {
-      const firstRepository = repository.full_name[0];
-      const lastRepository =
-        repository.full_name[repository.full_name.length - 1];
-      commit.message = commit.message.replaceAll(repository.full_name, `${firstRepository}...${lastRepository}`);
-    }
 
     let sha = commit.id.substring(0, 6);
     let message =
