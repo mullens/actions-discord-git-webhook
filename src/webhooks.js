@@ -89,9 +89,7 @@ module.exports.getChangeLog = (payload, hideLinks) => {
     changelog +=  `
       \`${sha}\` ${message}  by _@${username}_
       ${commit.url}
-      ${added}
-      ${modified}
-      ${deleted}`;
+${added}${modified}${deleted}`;
   }
 
   return changelog;
