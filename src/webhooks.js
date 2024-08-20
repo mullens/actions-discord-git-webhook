@@ -25,9 +25,14 @@ module.exports.send = (
   let latest = commits[0];
   const count = size == 1 ? "Commit" : " Commits";
 
+  let firstCommitMessage =  
+  commit[0].message.length > MAX_MESSAGE_LENGTH
+    ? commit[0].message.substring(0, MAX_MESSAGE_LENGTH) + "..."
+    : commit[0].message;
+
   let embed = new discord.MessageEmbed()
     .setColor(color)
-    .setTitle(`⚡ ${size} ${count}\n by ${commits[0].author.name}`)
+    .setTitle(`⚡ ${commits[0].author.username}: ${firstCommitMessage}`)
     .setDescription(this.getChangeLog(payload, hideLinks, censorUsername))
     .setTimestamp(Date.parse(latest.timestamp));
 
