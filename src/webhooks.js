@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 const core = require("@actions/core");
-const MAX_MESSAGE_LENGTH = 128;
+const MAX_MESSAGE_LENGTH = 256;
 
 module.exports.send = (
   webhookUrl,
@@ -95,7 +95,7 @@ module.exports.getChangeLog = (payload, hideLinks, censorUsername) => {
         : commit.message;
     changelog += !hideLinks
       ? `[\`${sha}\`](${commit.url}) ${message} by _@${username}_\n`
-      : `\`${sha}\` ${message}  by _@${username}_\n`;
+      : `\`${sha}\` ${message}  by _@${username}_\n$${JSON.stringify(commit)}`;
   }
 
   return changelog;
