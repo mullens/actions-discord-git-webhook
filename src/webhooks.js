@@ -29,7 +29,7 @@ module.exports.send = (
 
   let embed = new discord.MessageEmbed()
     .setColor(color)
-    .setTitle(`⚡ ${size} ${count}\n📁\`${repository}\`\n🌳 \`${branch}\``)
+    .setTitle(`⚡ ${size} ${count}\n by ${commit.author.name}`)
     .setDescription(this.getChangeLog(payload, hideLinks, censorUsername))
     .setTimestamp(Date.parse(latest.timestamp));
 
@@ -61,7 +61,7 @@ module.exports.send = (
   });
 };
 
-module.exports.getChangeLog = (payload, hideLinks, censorUsername) => {
+module.exports.getChangeLog = (payload, hideLinks) => {
   core.info("Constructing Changelog...");
   const commits = payload.commits;
   let changelog = "";
@@ -73,12 +73,7 @@ module.exports.getChangeLog = (payload, hideLinks, censorUsername) => {
     }
 
     let commit = commits[i];
-    const firstUsername = commit.author.username[0];
-    const lastUsername =
-      commit.author.username[commit.author.username.length - 1];
-    const username = !!censorUsername
-      ? `${firstUsername}...${lastUsername}`
-      : commit.author.username;
+    const username = commit.author.username;
     const repository = payload.repository;
 
     if (commit.message.includes(repository.full_name) && hideLinks) {
@@ -93,9 +88,13 @@ module.exports.getChangeLog = (payload, hideLinks, censorUsername) => {
       commit.message.length > MAX_MESSAGE_LENGTH
         ? commit.message.substring(0, MAX_MESSAGE_LENGTH) + "..."
         : commit.message;
-    changelog += !hideLinks
-      ? `[\`${sha}\`](${commit.url}) ${message} by _@${username}_\n`
-      : `\`${sha}\` ${message}  by _@${username}_\n$${JSON.stringify(commit)}`;
+        let modified = commit.modified.length > 0 ? `Modified: \n\t${commit.modified.join('\n\t')}\n` : '';
+        let deleted = commit.modified.length > 0 ? `Deleted: \n\t${commit.deleted.join('\n\t')}\n` : '';
+    changelog +=  `${commit.url}\n
+      \`${sha}\` ${message}  by _@${username}_\n
+      ${modified}
+      ${deleted}
+      `;
   }
 
   return changelog;
