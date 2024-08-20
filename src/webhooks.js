@@ -26,9 +26,9 @@ module.exports.send = (
   const count = size == 1 ? "Commit" : " Commits";
 
   let firstCommitMessage =  
-  commit[0].message.length > MAX_MESSAGE_LENGTH
-    ? commit[0].message.substring(0, MAX_MESSAGE_LENGTH) + "..."
-    : commit[0].message;
+  commits[0].message.length > MAX_MESSAGE_LENGTH
+    ? commits[0].message.substring(0, MAX_MESSAGE_LENGTH) + "..."
+    : commits[0].message;
 
   let embed = new discord.MessageEmbed()
     .setColor(color)
