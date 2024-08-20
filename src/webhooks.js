@@ -86,12 +86,12 @@ module.exports.getChangeLog = (payload, hideLinks) => {
         let modified = commit.modified ? `Modified: \n  ${commit.modified.join('\n  ')}\n` : '';
         let deleted = commit.modified ? `Deleted: \n  ${commit.deleted.join('\n  ')}\n` : '';
         let added = commit.added ? `Added: \n  ${commit.added.join('\n  ')}\n` : '';
-    changelog +=  `${commit.url}\n
-      \`${sha}\` ${message}  by _@${username}_\n
+    changelog +=  `
+      \`${sha}\` ${message}  by _@${username}_
+      ${commit.url}
       ${added}
       ${modified}
-      ${deleted}
-      `;
+      ${deleted}`;
   }
 
   return changelog;
