@@ -78,8 +78,8 @@ module.exports.getChangeLog = (payload, hideLinks) => {
       commit.message.length > MAX_MESSAGE_LENGTH
         ? commit.message.substring(0, MAX_MESSAGE_LENGTH) + "..."
         : commit.message;
-        let modified = commit.modified.length > 0 ? `Modified: \n\t${commit.modified.join('\n\t')}\n` : '';
-        let deleted = commit.modified.length > 0 ? `Deleted: \n\t${commit.deleted.join('\n\t')}\n` : '';
+        let modified = commit.modified ? `Modified: \n\t${commit.modified.join('\n\t')}\n` : '';
+        let deleted = commit.modified ? `Deleted: \n\t${commit.deleted.join('\n\t')}\n` : '';
     changelog +=  `${commit.url}\n
       \`${sha}\` ${message}  by _@${username}_\n
       ${modified}
