@@ -6,8 +6,8 @@ module.exports.send = (
   webhookUrl,
   payload,
   hideLinks,
-  censorUsername,
-  color
+  color,
+  hasError,
 ) => {
   const commits = payload.commits;
   const size = commits.length;
@@ -33,7 +33,7 @@ module.exports.send = (
   let embed = new discord.MessageEmbed()
     .setColor(color)
     .setTitle(`⚡ ${commits[0].author.username}: ${firstCommitMessage}`)
-    .setDescription(this.getChangeLog(payload, hideLinks, censorUsername))
+    .setDescription(this.getChangeLog(payload, hasError))
     .setTimestamp(Date.parse(latest.timestamp));
 
   if (!hideLinks) {
@@ -64,10 +64,14 @@ module.exports.send = (
   });
 };
 
-module.exports.getChangeLog = (payload, hideLinks) => {
+module.exports.getChangeLog = (payload, hasError) => {
   core.info("Constructing Changelog...");
   const commits = payload.commits;
   let changelog = "";
+
+  if (hasError) {
+    changeLog += "TEST FAILURE\n";
+  }
 
   for (let i in commits) {
     if (i > 3) {
