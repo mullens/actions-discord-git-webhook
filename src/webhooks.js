@@ -35,7 +35,7 @@ module.exports.send = (
 
   let embed = new discord.MessageEmbed()
     .setColor(color)
-    .setTitle(`${hasError ? bad : good}: ${firstCommitMessage}`)
+    .setTitle(`${hasError == 'true' ? bad : good}: ${firstCommitMessage}`)
     .setDescription(this.getChangeLog(payload, hasError))
     .setTimestamp(Date.parse(latest.timestamp));
 
