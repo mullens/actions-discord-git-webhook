@@ -70,7 +70,7 @@ module.exports.getChangeLog = (payload, hasError) => {
   let changelog = "";
 
   if (hasError) {
-    changeLog += "TEST FAILURE\n";
+    changelog += "TEST FAILURE\n";
   }
 
   for (let i in commits) {
