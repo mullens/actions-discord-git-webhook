@@ -30,9 +30,12 @@ module.exports.send = (
     ? commits[0].message.substring(0, MAX_MESSAGE_LENGTH) + "..."
     : commits[0].message;
 
+    let good = `⚡ ${commits[0].author.username}`;
+    let bad = `❌ [TEST FAILURE] ${commits[0].author.username}`;
+
   let embed = new discord.MessageEmbed()
     .setColor(color)
-    .setTitle(`⚡ ${commits[0].author.username}: ${firstCommitMessage}`)
+    .setTitle(`${hasError ? bad : good}: ${firstCommitMessage}`)
     .setDescription(this.getChangeLog(payload, hasError))
     .setTimestamp(Date.parse(latest.timestamp));
 
