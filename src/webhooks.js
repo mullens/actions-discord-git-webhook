@@ -2,6 +2,14 @@ const discord = require("discord.js");
 const core = require("@actions/core");
 const MAX_MESSAGE_LENGTH = 256;
 
+function capStringLength(str, maxLength) {
+  if (str.length > maxLength) {
+    return str.substring(0, maxLength);
+  } else {
+    return str;
+  }
+}
+
 module.exports.send = (
   webhookUrl,
   payload,
@@ -35,7 +43,7 @@ module.exports.send = (
 
   let embed = new discord.MessageEmbed()
     .setColor(color)
-    .setTitle(`${hasError == 'true' ? bad : good}: ${firstCommitMessage}`)
+    .setTitle(capStringLength(`${hasError == 'true' ? bad : good}: ${firstCommitMessage}`, 255))
     .setDescription(this.getChangeLog(payload, hasError))
     .setTimestamp(Date.parse(latest.timestamp));
 
