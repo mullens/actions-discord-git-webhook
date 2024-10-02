@@ -83,6 +83,8 @@ module.exports.getChangeLog = (payload, hasError) => {
 
   if (hasError == 'true') {
     changelog += "TEST FAILURE\n";
+  } else {
+    changelog += "Deployed to https://tabletoad.com\n";
   }
 
   for (let i in commits) {
