@@ -21,6 +21,11 @@ module.exports.send = (
   const size = commits.length;
   const url = payload.compare;
 
+  console.log('hasError: ');
+  console.log(hasError);
+  console.log('hasError == \'true\'');
+  console.log(hasError == 'true');
+
   if (commits.length === 0) {
     core.warning(`Aborting analysis, found no commits.`);
     return Promise.resolve();
