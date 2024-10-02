@@ -45,7 +45,7 @@ module.exports.send = (
     let bad = `❌ [TEST FAILURE] ${commits[0].author.username}`;
 
   let embed = new discord.MessageEmbed()
-    .setColor(color)
+    .setColor('82BF80')
     .setTitle(capStringLength(`${hasError == 'true' ? bad : good}: ${firstCommitMessage}`, 255))
     .setDescription(this.getChangeLog(payload, hasError))
     .setTimestamp(Date.parse(latest.timestamp));
