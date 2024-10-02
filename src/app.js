@@ -5,7 +5,6 @@ const webhooks = require("./webhooks.js");
 
 async function main() {
   let webhookUrl = core.getInput("webhook_url");
-  const hideLinks = core.getInput("hide_links");
   const color = core.getInput("color");
   const id = core.getInput("id");
   const token = core.getInput("token");
@@ -32,7 +31,6 @@ async function main() {
   await webhooks.send(
     webhookUrl,
     payload,
-    hideLinks,
     censorUsername,
     color
   );

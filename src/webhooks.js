@@ -51,9 +51,7 @@ module.exports.send = (
     .setDescription(this.getChangeLog(payload, hasError))
     .setTimestamp(Date.parse(latest.timestamp));
 
-  if (!hideLinks) {
-    embed.setURL(url);
-  }
+  embed.setURL(url);
 
   return new Promise((resolve, reject) => {
     let client;
