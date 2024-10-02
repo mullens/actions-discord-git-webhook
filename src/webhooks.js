@@ -13,7 +13,6 @@ function capStringLength(str, maxLength) {
 module.exports.send = (
   webhookUrl,
   payload,
-  color,
   hasError,
 ) => {
   const commits = payload.commits;

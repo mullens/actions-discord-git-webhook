@@ -5,11 +5,10 @@ const webhooks = require("./webhooks.js");
 
 async function main() {
   let webhookUrl = core.getInput("webhook_url");
-  const color = core.getInput("color");
+  const hasError = core.getInput("hasError");
   const id = core.getInput("id");
   const token = core.getInput("token");
   const customRepoName = core.getInput("repo_name");
-  const censorUsername = core.getInput("censor_username");
 
   let payload = github.context.payload;
 
@@ -31,8 +30,7 @@ async function main() {
   await webhooks.send(
     webhookUrl,
     payload,
-    censorUsername,
-    color
+    hasError,
   );
 }
 
